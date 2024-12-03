@@ -11,6 +11,25 @@ export const getAllBookings = async (req, res) => {
   }
 };
 
+// ดึงข้อมูลการจองตาม ID
+export const getBookingById = async (req, res) => {
+  const { meeting_id } = req.params; // Extract the meeting_id from the URL
+
+  try {
+    // หาข้อมูลการจองตาม meeting_id
+    const booking = await BookedSlot.findById(meeting_id).populate("teamMember");
+
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found." });
+    }
+
+    res.json(booking); // ส่งข้อมูลการจอง
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
 // เพิ่มการจองใหม่
 export const createBooking = async (req, res) => {
   const { teamMember, startTime, duration } = req.body;

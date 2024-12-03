@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getAllBookings,
+  getBookingById,
   createBooking,
   updateBooking,
   deleteBooking,
@@ -13,7 +14,8 @@ router.get("/", getAllBookings);
 
 // เส้นทาง: POST /api/book
 router.post("/", createBooking);
-
+// เส้นทาง: GET /api/book/:id
+router.get("/bookings/:meeting_id", getBookingById);
 // เส้นทาง: PUT /api/book/:meeting_id
 router.put("/:meeting_id", updateBooking);
 
